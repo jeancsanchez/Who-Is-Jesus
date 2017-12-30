@@ -7,19 +7,32 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ViewController: UIViewController {
 
+    @IBAction func btnNotification(_ sender: Any) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options:[.alert, .sound, .badge], completionHandler:{ didAllow, error in
+                if(didAllow){
+                    
+                }
+            })
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
