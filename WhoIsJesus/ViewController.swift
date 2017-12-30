@@ -12,7 +12,16 @@ import UserNotifications
 class ViewController: UIViewController {
 
     @IBAction func btnNotification(_ sender: Any) {
+        let content = UNMutableNotificationContent()
+        content.title = "Hello world"
+        content.subtitle = "Hello world subtitle"
+        content.badge = 1
+        content.body = "Hello world body"
         
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let request = UNNotificationRequest(identifier: "request", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     override func viewDidLoad() {
@@ -24,9 +33,6 @@ class ViewController: UIViewController {
                     
                 }
             })
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
