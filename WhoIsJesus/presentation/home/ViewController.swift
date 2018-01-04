@@ -11,14 +11,15 @@ import UserNotifications
 
 class ViewController: UIViewController {
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UNUserNotificationCenter.current()
             .requestAuthorization(options:[.alert, .sound, .badge], completionHandler:{ didAllow, error in
                 if(didAllow){
-                    self.generateNotification(verse: Verse(randomNumber: 0))
+                    Verse(randomNumber: 0, handler: { (verse) in
+                      self.generateNotification(verse: verse)
+                    })
                 }
             })
     }
@@ -28,7 +29,7 @@ class ViewController: UIViewController {
      * Generates a new notification from the Verse object.
      * - Parameter verse: The given verse.
      */
-    func generateNotification(verse: Verse){
+    private func generateNotification(verse: Verse){
         let content = UNMutableNotificationContent()
         let title = verse.book + " " + String(verse.chapterNumber) + " - " + String(verse.verseBeginNumber) + ", " + String(verse.verseEndNumber)
         

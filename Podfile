@@ -8,6 +8,7 @@ target 'WhoIsJesus' do
   # Pods for WhoIsJesus
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+pod 'Alamofire', '~> 4.5'
 
   target 'WhoIsJesusTests' do
     inherit! :search_paths
