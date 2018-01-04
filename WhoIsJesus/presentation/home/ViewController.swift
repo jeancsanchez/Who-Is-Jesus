@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     }
 
     
+    /**
+     * Generates a new notification from the Verse object.
+     * - Parameter verse: The given verse.
+     */
     func generateNotification(verse: Verse){
         let content = UNMutableNotificationContent()
         let title = verse.book + " " + String(verse.chapterNumber) + " - " + String(verse.verseBeginNumber) + ", " + String(verse.verseEndNumber)
