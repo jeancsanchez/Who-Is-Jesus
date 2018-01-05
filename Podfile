@@ -9,6 +9,7 @@ target 'WhoIsJesus' do
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
 pod 'Alamofire', '~> 4.5'
+pod 'AlamofireObjectMapper', '~> 5.0'
 
   target 'WhoIsJesusTests' do
     inherit! :search_paths
