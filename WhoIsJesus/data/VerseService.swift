@@ -1,18 +1,18 @@
 //
-//  phrases.swift
+//  VerseService.swift
 //  WhoIsJesus
 //
-//  Created by Jean  Carlos on 03/01/18.
+//  Created by Jean  Carlos on 07/01/18.
 //  Copyright © 2018 Jean  Carlos. All rights reserved.
 //
 
 import Foundation
 import Alamofire
+import JSONJoy
 
-class Verse  {
+class VerseService {
     
-    private let BASE_API = "http://0.0.0.0:8000/api/verses/"
-    private var randomNumber: Int = 0
+    private let BASE_API = "http://192.168.1.103:8000/api/verses"
     private let gospels = [
         0: "Mt",
         1: "Lc",
@@ -31,15 +31,10 @@ class Verse  {
         14: "I Tim",
         15: "II Tim"
     ]
+    private var randomNumber: Int = 0
+    private var handler: (_ venda: Verse) -> ()
     
-    var verse: String = ""
-    var book: String = ""
-    var chapterNumber: Int = 0
-    var verseBeginNumber: Int = 0
-    var verseEndNumber: Int = 0
-    var handler: (_ venda: Verse) -> ()
-    
-    init(randomNumber: Int, handler:@escaping (_ venda: Verse) -> ()) {
+    init(randomNumber: Int, handler:@escaping (_ venda: Verse) -> ()){
         self.randomNumber = randomNumber
         self.handler = handler
         
@@ -55,17 +50,22 @@ class Verse  {
                         print("Response: \(String(describing: response.response))") // http url response
                         print("Result: \(response.result)")                         // response serialization result
                         
-                        if let value = response.result.value {
-                            let result = value as! Verse
-                            
-                            self.verse = String(result.verse)
-                            self.book = String(result.book)
-                            self.chapterNumber = Int(result.chapterNumber)
-                            self.verseBeginNumber = Int(result.verseBeginNumber)
-                            self.verseEndNumber = Int(result.verseEndNumber)
-                            handler(self)
+                        switch response.result {
+                        case .success: do {
+                            if let result = response.result.value {
+                                do {
+                                    let verse = try Verse(JSONLoader(result))
+                                    handler(verse)
+                                } catch {
+                                    print("unable to parse the JSON")
+                                }
+                            }
                         }
-                    })
+                        case .failure(let error): do {
+                            print(error.localizedDescription)
+                        }
+                    }
+                })
             }
         }
     }

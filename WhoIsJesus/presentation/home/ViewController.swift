@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         UNUserNotificationCenter.current()
             .requestAuthorization(options:[.alert, .sound, .badge], completionHandler:{ didAllow, error in
                 if(didAllow){
-                    Verse(randomNumber: 0, handler: { (verse) in
+                    let _ = VerseService(randomNumber: 0, handler: { (verse) in
                       self.generateNotification(verse: verse)
                     })
                 }

@@ -6,10 +6,11 @@ target 'WhoIsJesus' do
   use_frameworks!
 
   # Pods for WhoIsJesus
-pod 'Firebase/Core'
-pod 'Firebase/Messaging'
-pod 'Alamofire', '~> 4.5'
-pod 'AlamofireObjectMapper', '~> 5.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Alamofire', '~> 4.5'
+  pod 'JSONJoy-Swift', '~> 3.0.2'
+
 
   target 'WhoIsJesusTests' do
     inherit! :search_paths
