@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         -> Bool {
             FirebaseApp.configure()
             return true
+    }
+    
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+        if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailView") as? DetailViewController {
+            if let window = self.window, let rootViewController = window.rootViewController {
+                var currentController = rootViewController
+                while let presentedController = currentController.presentedViewController {
+                    currentController = presentedController
+                }
+                currentController.present(controller, animated: true, completion: nil)
+            }
+        }
+    
+    }
+    
+    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UNNotificationRequest, completionHandler: @escaping () -> Void) {
+        
+        
+        if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailView") as? DetailViewController {
+            if let window = self.window, let rootViewController = window.rootViewController {
+                var currentController = rootViewController
+                while let presentedController = currentController.presentedViewController {
+                    currentController = presentedController
+                }
+                currentController.present(controller, animated: true, completion: nil)
+            }
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

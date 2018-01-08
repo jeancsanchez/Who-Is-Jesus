@@ -10,7 +10,7 @@ target 'WhoIsJesus' do
   pod 'Firebase/Messaging'
   pod 'Alamofire', '~> 4.5'
   pod 'JSONJoy-Swift', '~> 3.0.2'
-
+  
 
   target 'WhoIsJesusTests' do
     inherit! :search_paths

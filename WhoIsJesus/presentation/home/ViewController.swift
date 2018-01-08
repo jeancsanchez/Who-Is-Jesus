@@ -9,19 +9,23 @@
 import UIKit
 import UserNotifications
 
-class ViewController: UIViewController {
 
+class ViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        UNUserNotificationCenter.current()
-            .requestAuthorization(options:[.alert, .sound, .badge], completionHandler:{ didAllow, error in
+        UNUserNotificationCenter.current().delegate = self
+    }
+
+    @IBAction func btnEnableNotifications(_ sender: Any) {
+        UNUserNotificationCenter.current().requestAuthorization(
+            options:[.alert, .sound, .badge], completionHandler:{ didAllow, error in
                 if(didAllow){
                     let _ = VerseService(randomNumber: 0, handler: { (verse) in
-                      self.generateNotification(verse: verse)
+                        self.generateNotification(verse: verse)
                     })
                 }
-            })
+        })
     }
 
     
@@ -30,17 +34,25 @@ class ViewController: UIViewController {
      * - Parameter verse: The given verse.
      */
     private func generateNotification(verse: Verse){
-        let content = UNMutableNotificationContent()
         let title = verse.book + " " + String(verse.chapterNumber) + " - " + String(verse.verseBeginNumber) + ", " + String(verse.verseEndNumber)
+    
+        LocalNotificationHelper.sharedInstance().scheduleNotificationWithKey(
+            key: "someKey", title: title, message: verse.verse, date: NSDate().addingTimeInterval(5), userInfo: nil
+        )
         
-        content.title = title
-        content.badge = 1
-        content.body = verse.verse
+        let defaultAction = LocalNotificationHelper.sharedInstance().createUserNotificationActionButton(
+            identifier: "defaultAction", title: "Ver mais"
+        )
+        let actions = [defaultAction]
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-        let request = UNNotificationRequest(identifier: "request", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        LocalNotificationHelper.sharedInstance().registerUserNotificationWithActionButtons(actions: actions)
+
     }
 }
 
+extension ViewController: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+    }
+}
