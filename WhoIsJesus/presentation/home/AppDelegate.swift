@@ -14,14 +14,16 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let notificationDelegate = NotificationDelegate()
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
         -> Bool {
             FirebaseApp.configure()
+            UNUserNotificationCenter.current().delegate = notificationDelegate
             return true
     }
-    
+
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
@@ -37,19 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     }
     
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UNNotificationRequest, completionHandler: @escaping () -> Void) {
-        
-        
-        if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailView") as? DetailViewController {
-            if let window = self.window, let rootViewController = window.rootViewController {
-                var currentController = rootViewController
-                while let presentedController = currentController.presentedViewController {
-                    currentController = presentedController
-                }
-                currentController.present(controller, animated: true, completion: nil)
-            }
-        }
-    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

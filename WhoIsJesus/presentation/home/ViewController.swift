@@ -11,11 +11,6 @@ import UserNotifications
 
 
 class ViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        UNUserNotificationCenter.current().delegate = self
-    }
 
     @IBAction func btnEnableNotifications(_ sender: Any) {
         UNUserNotificationCenter.current().requestAuthorization(
@@ -35,24 +30,16 @@ class ViewController: UIViewController {
      */
     private func generateNotification(verse: Verse){
         let title = verse.book + " " + String(verse.chapterNumber) + " - " + String(verse.verseBeginNumber) + ", " + String(verse.verseEndNumber)
-    
-        LocalNotificationHelper.sharedInstance().scheduleNotificationWithKey(
-            key: "someKey", title: title, message: verse.verse, date: NSDate().addingTimeInterval(5), userInfo: nil
+        
+        let userInfo = ["url" : "https://www.bibliaonline.com.br/acf/\(verse.book)/\(verse.chapterNumber)/\(verse.verseBeginNumber)+\(verse.verseEndNumber)"]
+        
+        LocalNotificationHelper.sharedInstance()
+                .scheduleNotificationWithKey(
+                        key: "default",
+                        title: title,
+                        message: verse.verse,
+                        seconds: 5,
+                        userInfo: userInfo as [NSObject : AnyObject]?
         )
-        
-        let defaultAction = LocalNotificationHelper.sharedInstance().createUserNotificationActionButton(
-            identifier: "defaultAction", title: "Ver mais"
-        )
-        let actions = [defaultAction]
-        
-        LocalNotificationHelper.sharedInstance().registerUserNotificationWithActionButtons(actions: actions)
-
-    }
-}
-
-extension ViewController: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    var url:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,8 +13,8 @@
         <!--Detail View Controller-->
         <scene sceneID="0br-Cg-BzE">
             <objects>
-                <viewController storyboardIdentifier="DetailView" id="yCf-9c-Ky4" customClass="DetailViewController" customModule="WhoIsJesus" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GzI-Ml-8KA">
+                <viewController storyboardIdentifier="Detail" id="yCf-9c-Ky4" customClass="DetailViewController" customModule="WhoIsJesus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="detailViewController" id="GzI-Ml-8KA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

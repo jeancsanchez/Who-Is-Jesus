@@ -12,7 +12,7 @@ import JSONJoy
 
 class VerseService {
     
-    private let BASE_API = "http://192.168.1.103:8000/api/verses"
+    private let BASE_API = "http://192.168.1.102:8000/api/verses"
     private let gospels = [
         0: "Mt",
         1: "Lc",
