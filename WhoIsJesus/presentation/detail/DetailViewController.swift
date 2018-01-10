@@ -12,10 +12,18 @@ import WebKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var webview: WKWebView?
     var url:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.webview = WKWebView()
+        self.view = webview
         
+        let currentURL = self.url
+        print("current url: \(currentURL)")
+        let url = URL(string:currentURL)!
+        let req = URLRequest(url:url)
+        self.webview!.load(req)
     }
 }
