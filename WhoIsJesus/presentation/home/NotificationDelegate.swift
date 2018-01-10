@@ -33,8 +33,7 @@ class NotificationDelegate : NSObject, UNUserNotificationCenterDelegate {
             
             // Navigate
             let storyboard = UIStoryboard(name: "Detail", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "detailViewController") as! UINavigationController
-            let view = controller.topViewController as! DetailViewController
+            let view = storyboard.instantiateViewController(withIdentifier: "detailViewController") as! DetailViewController
             view.url = url!
             
             UIApplication.shared.keyWindow?.rootViewController?.present(view, animated: true, completion: nil)
